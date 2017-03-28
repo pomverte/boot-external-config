@@ -43,7 +43,7 @@ http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-exte
 ### Option 3
 Specify the path to file
 
-```java -jar boot-external-config-0.0.1.jar -Dspring.config.location=file:/path/to/file/application.properties```
+```java -jar boot-external-config-0.0.1.jar --spring.config.location=file:/path/to/file/application.properties```
 
 ### Result
 ```value = [It works !]```
