@@ -5,7 +5,7 @@ pipeline {
   agent any
 
   environment {
-    RUN_UNIT_TESTS = 'true'
+    RUN_UNIT_TESTS = 'false'
     ARTIFACT_ID = readMavenPom().getArtifactId()
     ARTIFACT_VERSION = readMavenPom().getVersion()
   }
@@ -43,9 +43,28 @@ pipeline {
           args '-v $HOME/.m2:/root/.m2'
         }
       }
+      when {
+        environment name: 'RUN_UNIT_TESTS', value: 'true'
+      }
       steps {
         configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
           sh 'mvn -B -s ${MAVEN_SETTINGS} clean package'
+        }
+      }
+    }
+    stage('Build Package Skip Tests') {
+      agent {
+        docker {
+          image 'maven:3.5.4-jdk-8-alpine'
+          args '-v $HOME/.m2:/root/.m2'
+        }
+      }
+      when {
+        not { environment name: 'RUN_UNIT_TESTS', value: 'true' }
+      }
+      steps {
+        configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
+          sh 'mvn -B -s ${MAVEN_SETTINGS} clean package -DskipTests'
         }
       }
     }
