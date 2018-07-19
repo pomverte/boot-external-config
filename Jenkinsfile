@@ -89,7 +89,7 @@ pipeline {
 
     stage('SonarQube') {
       steps {
-        sh 'TODO Static Analysis ...'
+        echo 'TODO Static Analysis ...'
       }
     }
 
@@ -97,7 +97,7 @@ pipeline {
 
   post {
     success {
-      sh "Build ${env.JOB_NAME} ${env.BUILD_NUMBER} status : ${currentBuild.currentResult}.\n${env.BUILD_URL}"
+      echo "Build ${env.JOB_NAME} ${env.BUILD_NUMBER} status : ${currentBuild.currentResult}.\n${env.BUILD_URL}"
       // TODO send slack
 //        slackSend channel: '#jenkins',
 //            color: 'good',
@@ -107,8 +107,8 @@ pipeline {
     }
     failure {
       // TODO send mail / slack
-      sh "I have not failed. I've just found 10 000 ways that won't work. -Thomas Edison"
-      sh "Failure is unimportant. It takes courage to make a fool of yourself. -Charlie Chaplin"
+      echo "I have not failed. I've just found 10 000 ways that won't work. -Thomas Edison"
+      echo "Failure is unimportant. It takes courage to make a fool of yourself. -Charlie Chaplin"
     }
   }
 
