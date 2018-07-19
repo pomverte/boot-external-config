@@ -93,21 +93,21 @@ pipeline {
       }
     }
 
-    post {
-      success {
-        sh "Build ${env.JOB_NAME} ${env.BUILD_NUMBER} status : ${currentBuild.currentResult}.\n${env.BUILD_URL}"
-        // TODO send slack
+  }
+
+  post {
+    success {
+      sh "Build ${env.JOB_NAME} ${env.BUILD_NUMBER} status : ${currentBuild.currentResult}.\n${env.BUILD_URL}"
+      // TODO send slack
 //        slackSend channel: '#jenkins',
 //            color: 'good',
 //            message: "Build ${env.JOB_NAME} ${env.BUILD_NUMBER} status : ${currentBuild.currentResult}.\n${env.BUILD_URL}",
 //            attachments: "",
 //            botUser: true
-      }
-      failure {
-        // TODO send mail / slack
-      }
     }
-
+    failure {
+      // TODO send mail / slack
+    }
   }
 
 }
