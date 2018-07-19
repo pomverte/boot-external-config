@@ -48,12 +48,26 @@ pipeline {
       }
     }
 
+    agent {
+      docker {
+        image 'maven:3.5.4-jdk-8-alpine'
+        args  ' -t --rm --volume ${MAVEN_SETTINGS}:/tmp/settings.xml:ro --volume /maven/.m2:/root/.m2 --volume $PWD:/workspace --workdir /workspace'
+      }
+    }
     stage('Build Package with Tests') {
       when {
         environment name: 'RUN_UNIT_TESTS', value: 'true'
       }
       steps {
-        dockerContainerRunMaven 'clean package'
+        configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
+          sh 'mvn --batch-mode --settings /tmp/settings.xml clean package'
+        }
+      }
+    }
+    agent {
+      docker {
+        image 'maven:3.5.4-jdk-8-alpine'
+        args  ' -t --rm --volume ${MAVEN_SETTINGS}:/tmp/settings.xml:ro --volume /maven/.m2:/root/.m2 --volume $PWD:/workspace --workdir /workspace'
       }
     }
     stage('Build Package Skip Tests') {
@@ -61,7 +75,9 @@ pipeline {
         not { environment name: 'RUN_UNIT_TESTS', value: 'true' }
       }
       steps {
-        dockerContainerRunMaven 'clean package -DskipTests'
+        configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
+          sh 'mvn --batch-mode --settings /tmp/settings.xml clean package -DskipTests'
+        }
       }
     }
 
