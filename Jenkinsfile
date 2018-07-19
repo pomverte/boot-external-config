@@ -89,7 +89,7 @@ pipeline {
 
     stage('SonarQube') {
       steps {
-        echo 'TODO Static Analysis ...'
+        echo "TODO Static Analysis ..."
       }
     }
 
