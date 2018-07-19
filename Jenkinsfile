@@ -86,6 +86,22 @@ pipeline {
         }
       }
     }
+
+    stage('SonarQube') {
+      steps {
+        sh 'TODO Static Analysis ...'
+      }
+    }
+
+    post {
+      success {
+        // TODO send slack
+      }
+      failure {
+        // TODO send mail / slack
+      }
+    }
+
   }
 
 }
