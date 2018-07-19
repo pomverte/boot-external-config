@@ -22,8 +22,9 @@ pipeline {
   }
 
   stages {
-    agent {}
+
     stage('Information') {
+      agent any
       steps {
         script {
           def commit = sh(returnStdout: true, script: 'git --no-pager show -s --format=\'%h\'  origin/' + env.BRANCH_NAME).trim()
