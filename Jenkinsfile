@@ -49,17 +49,21 @@ pipeline {
     }
 
     stage('Build Package') {
-      when {
-        environment name: 'RUN_UNIT_TESTS', value: 'true'
+      stage('Build Package with Tests') {
+        when {
+          environment name: 'RUN_UNIT_TESTS', value: 'true'
+        }
+        steps {
+          dockerContainerRunMaven 'clean package'
+        }
       }
-      steps {
-        dockerContainerRunMaven 'clean package'
-      }
-      when {
-        not { environment name: 'RUN_UNIT_TESTS', value: 'true' }
-      }
-      steps {
-        dockerContainerRunMaven 'clean package -DskipTests'
+      stage('Build Package Skip Tests') {
+        when {
+          not { environment name: 'RUN_UNIT_TESTS', value: 'true' }
+        }
+        steps {
+          dockerContainerRunMaven 'clean package -DskipTests'
+        }
       }
     }
 
