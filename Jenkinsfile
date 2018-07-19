@@ -14,7 +14,7 @@ pipeline {
     stage('Build Package with Tests') {
       steps {
         configFileProvider([configFile(fileId: 'maven-settings', targetLocation: '/usr/share/maven/ref/settings.xml')]) {
-          sh 'ls -l /usr/share/maven/ref/'
+          sh 'ls -l'
         }
       }
     }
