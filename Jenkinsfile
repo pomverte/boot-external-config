@@ -108,6 +108,7 @@ pipeline {
     failure {
       // TODO send mail / slack
       sh "I have not failed. I've just found 10 000 ways that won't work. -Thomas Edison"
+      sh "Failure is unimportant. It takes courage to make a fool of yourself. -Charlie Chaplin"
     }
   }
 
