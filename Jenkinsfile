@@ -22,12 +22,6 @@ pipeline {
 
   stages {
 
-    stage('Hello') {
-      steps {
-        echo "Hello Jenkins"
-      }
-    }
-
     stage('Information') {
       steps {
         script {
