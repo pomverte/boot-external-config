@@ -13,7 +13,7 @@ pipeline {
 
     stage('Build Package with Tests') {
       steps {
-        configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS', targetLocation: ''/usr/share/maven/ref/settings.xml)]) {
+        configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS', targetLocation: '/usr/share/maven/ref/settings.xml')]) {
           sh 'mvn -B -s /usr/share/maven/ref/settings.xml clean package'
         }
       }
