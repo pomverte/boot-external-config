@@ -13,7 +13,7 @@ pipeline {
 
     stage('Build Package with Tests') {
       steps {
-        configFileProvider([configFile(fileId: 'maven-settings', targetLocation: '/usr/share/maven/ref/settings.xml')]) {
+        configFileProvider([configFile(fileId: 'maven-settings', targetLocation: '/tmp/settings.xml')]) {
           sh 'ls -l'
         }
       }
