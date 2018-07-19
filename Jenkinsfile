@@ -22,7 +22,7 @@ pipeline {
   }
 
   stages {
-    agent any
+    agent {}
     stage('Information') {
       steps {
         script {
