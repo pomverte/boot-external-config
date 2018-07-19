@@ -97,7 +97,7 @@ pipeline {
 
   post {
     success {
-      echo "Build ${env.JOB_NAME} ${env.BUILD_NUMBER} status : ${currentBuild.currentResult}.\n${env.BUILD_URL}"
+      echo "Build ${env.JOB_NAME} #${env.BUILD_NUMBER} status : ${currentBuild.currentResult}.\n${env.BUILD_URL}"
       // TODO send slack
 //        slackSend channel: '#jenkins',
 //            color: 'good',
