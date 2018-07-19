@@ -13,9 +13,8 @@ pipeline {
 
     stage('Build Package with Tests') {
       steps {
-        configFileProvider([configFile(fileId: 'maven-settings', targetLocation: '/tmp/settings.xml')]) {
-          sh 'ls -l'
-          sh 'ls -l /tmp'
+        configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
+          sh 'mvn -B -s ${MAVEN_SETTINGS} clean package'
         }
       }
     }
