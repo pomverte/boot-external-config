@@ -2,7 +2,7 @@
 
 pipeline {
 
-  agent none
+  agent any
 
   environment {
     RUN_UNIT_TESTS = 'true'
