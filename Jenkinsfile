@@ -23,7 +23,7 @@ pipeline {
       agent {
         docker {
           image 'maven:3.5.4-jdk-8-alpine'
-          args  ' -t --rm --volume ${MAVEN_SETTINGS}:/tmp/settings.xml:ro --volume /maven/.m2:/root/.m2 --volume $PWD:/workspace --workdir /workspace'
+          args  '-t -u root:root --rm --volume ${MAVEN_SETTINGS}:/tmp/settings.xml:ro --volume /maven/.m2:/root/.m2 --volume $PWD:/workspace --workdir /workspace'
         }
       }
       steps {
