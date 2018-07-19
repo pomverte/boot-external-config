@@ -15,6 +15,7 @@ pipeline {
       steps {
         configFileProvider([configFile(fileId: 'maven-settings', targetLocation: '/tmp/settings.xml')]) {
           sh 'ls -l'
+          sh 'ls -l /tmp'
         }
       }
     }
