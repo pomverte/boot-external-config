@@ -2,13 +2,7 @@
 
 pipeline {
 
-
-  agent {
-    docker {
-      image 'maven:3.5.4-jdk-8-alpine'
-      args '-v $HOME/.m2:/root/.m2'
-    }
-  }
+  agent any
 
   environment {
     RUN_UNIT_TESTS = 'false'
@@ -24,7 +18,6 @@ pipeline {
   stages {
 
     stage('Information') {
-      agent any
       steps {
         script {
           def commit = sh(returnStdout: true, script: 'git --no-pager show -s --format=\'%h\'  origin/' + env.BRANCH_NAME).trim()
@@ -48,6 +41,12 @@ pipeline {
       when {
         environment name: 'RUN_UNIT_TESTS', value: 'true'
       }
+      agent {
+        docker {
+          image 'maven:3.5.4-jdk-8-alpine'
+          args '-v $HOME/.m2:/root/.m2'
+        }
+      }
       steps {
         configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
           sh 'mvn -B -s ${MAVEN_SETTINGS} clean package'
@@ -57,6 +56,12 @@ pipeline {
     stage('Build Package Skip Tests') {
       when {
         not { environment name: 'RUN_UNIT_TESTS', value: 'true' }
+      }
+      agent {
+        docker {
+          image 'maven:3.5.4-jdk-8-alpine'
+          args '-v $HOME/.m2:/root/.m2'
+        }
       }
       steps {
         configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
@@ -68,6 +73,12 @@ pipeline {
     stage('Deploy Artifact') {
       when {
         not { environment name: 'DEPLOY_ARTIFACT', value: 'true' }
+      }
+      agent {
+        docker {
+          image 'maven:3.5.4-jdk-8-alpine'
+          args '-v $HOME/.m2:/root/.m2'
+        }
       }
       steps {
         configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
