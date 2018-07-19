@@ -7,7 +7,7 @@ def dockerContainerRunMaven(mvnArgs){
 }
 
 pipeline {
-  
+
   agent any
 
   environment {
@@ -19,9 +19,9 @@ pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '10'))
   }
-  
+
   stages {
-    
+
     stage('Hello') {
       steps {
         echo "Hello Jenkins"
@@ -48,25 +48,23 @@ pipeline {
       }
     }
 
-    stage('Build Package') {
-      stage('Build Package with Tests') {
-        when {
-          environment name: 'RUN_UNIT_TESTS', value: 'true'
-        }
-        steps {
-          dockerContainerRunMaven 'clean package'
-        }
+    stage('Build Package with Tests') {
+      when {
+        environment name: 'RUN_UNIT_TESTS', value: 'true'
       }
-      stage('Build Package Skip Tests') {
-        when {
-          not { environment name: 'RUN_UNIT_TESTS', value: 'true' }
-        }
-        steps {
-          dockerContainerRunMaven 'clean package -DskipTests'
-        }
+      steps {
+        dockerContainerRunMaven 'clean package'
+      }
+    }
+    stage('Build Package Skip Tests') {
+      when {
+        not { environment name: 'RUN_UNIT_TESTS', value: 'true' }
+      }
+      steps {
+        dockerContainerRunMaven 'clean package -DskipTests'
       }
     }
 
   }
-  
+
 }
