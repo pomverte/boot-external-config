@@ -1,7 +1,12 @@
 pipeline {
   
   agent any
-  
+
+  environment {
+    ARTIFACT_ID = readMavenPom().getArtifactId()
+    ARTIFACT_VERSION = readMavenPom().getVersion()
+  }
+
   options {
     buildDiscarder(logRotator(numToKeepStr: '10'))
   }
