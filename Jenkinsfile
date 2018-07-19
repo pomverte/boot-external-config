@@ -72,7 +72,7 @@ pipeline {
 
     stage('Deploy Artifact') {
       when {
-        not { environment name: 'DEPLOY_ARTIFACT', value: 'true' }
+        environment name: 'DEPLOY_ARTIFACT', value: 'true'
       }
       agent {
         docker {
