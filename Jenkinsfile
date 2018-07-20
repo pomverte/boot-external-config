@@ -78,6 +78,7 @@ pipeline {
         docker {
           image 'maven:3.5.4-jdk-8-alpine'
           args '-v $HOME/.m2:/root/.m2'
+          reuseNode true
         }
       }
       steps {
