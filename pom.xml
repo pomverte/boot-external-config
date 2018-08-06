@@ -60,7 +60,7 @@
           <pushHotfixes>false</pushHotfixes>
           <releaseBranchVersionSuffix>RC</releaseBranchVersionSuffix>
           <noDeploy>true</noDeploy>
-          <scmCommentPrefix>gitflow : </scmCommentPrefix>
+          <scmCommentPrefix>[jgitflow] </scmCommentPrefix>
         </configuration>
       </plugin>
     </plugins>
