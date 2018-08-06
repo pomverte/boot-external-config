@@ -60,8 +60,8 @@ Specify the path to file
 
 ### Start Hotfix
 
-```mvn jgitflow:hotfix-start -B -f pom.xml```
+```mvn jgitflow:hotfix-start -B -f pom.xml -DreleaseVersion=1.0.1.1```
 
 ### Finish Hotfix
 
-```mvn jgitflow:hotfix-finish -B -f pom.xml -DreleaseVersion=1.0.1.1```
+```mvn jgitflow:hotfix-finish -B -f pom.xml```
