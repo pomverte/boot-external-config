@@ -56,4 +56,4 @@ Specify the path to file
 
 ### Finish Release
 
-```jgitflow:release-finish -f pom.xml```
+```jgitflow:release-finish -B -f pom.xml```
