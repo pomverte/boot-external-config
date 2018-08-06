@@ -4,7 +4,7 @@
 
   <groupId>fr.pomverte</groupId>
   <artifactId>boot-external-config</artifactId>
-  <version>1.0.1.1</version>
+  <version>1.0.1</version>
   <packaging>jar</packaging>
 
   <name>boot-external-config</name>
@@ -60,6 +60,7 @@
           <pushHotfixes>false</pushHotfixes>
           <releaseBranchVersionSuffix>RC</releaseBranchVersionSuffix>
           <noDeploy>true</noDeploy>
+          <scmCommentPrefix>gitflow : </scmCommentPrefix>
         </configuration>
       </plugin>
     </plugins>
