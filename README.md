@@ -52,8 +52,16 @@ Specify the path to file
 
 ### Start Release
 
-```jgitflow:release-start -B -f pom.xml```
+```mvn jgitflow:release-start -B -f pom.xml```
 
 ### Finish Release
 
-```jgitflow:release-finish -B -f pom.xml```
+```mvn jgitflow:release-finish -B -f pom.xml```
+
+### Start Hotfix
+
+```mvn jgitflow:hotfix-start -B -f pom.xml```
+
+### Finish Hotfix
+
+```mvn jgitflow:hotfix-finish -B -f pom.xml -DreleaseVersion=1.0.1.1```
