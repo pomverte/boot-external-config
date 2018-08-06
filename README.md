@@ -48,3 +48,12 @@ Specify the path to file
 ### Result
 ```value = [It works !]```
 
+## GitFlow
+
+### Start Release
+
+```jgitflow:release-start -B -f pom.xml```
+
+### Finish Release
+
+```jgitflow:release-finish -B -f pom.xml```
