@@ -65,3 +65,4 @@ Specify the path to file
 ### Finish Hotfix
 
 ```mvn jgitflow:hotfix-finish -B -f pom.xml```
+
