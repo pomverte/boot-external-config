@@ -98,7 +98,8 @@ pipeline {
       agent any
       steps {
         script {
-          readMavenPom file: './pom.xml'
+          pom = readMavenPom file: './pom.xml'
+          echo "${pom}"
           def commit = sh(returnStdout: true, script: 'git --no-pager show -s --format=\'%h\'  origin/' + env.BRANCH_NAME).trim()
           sh 'docker build -t men/sirh/${pom.artifactId}:${pom.version} .'
           sh 'docker tag men/sirh/${pom.artifactId}:${pom.version} men/sirh/${pom.artifactId}:${commit}'
