@@ -20,6 +20,7 @@ pipeline {
     stage('Information') {
       steps {
         script {
+          def gitCommitId = sh(returnStdout: true, script: 'git rev-parse --short HEAD')
           def commit = sh(returnStdout: true, script: 'git --no-pager show -s --format=\'%h\'  origin/' + env.BRANCH_NAME).trim()
           def author = sh(returnStdout: true, script: 'git --no-pager show -s --format=\'%an\' origin/' + env.BRANCH_NAME).trim()
           def authorEmail = sh(returnStdout: true, script: 'git --no-pager show -s --format=\'%ae\' origin/' + env.BRANCH_NAME).trim()
@@ -28,7 +29,7 @@ pipeline {
     Branch : ${env.BRANCH_NAME}
     Author : ${author}
     Email : ${authorEmail}
-    Commit : ${commit}
+    Commit : ${gitCommitId}
     Comment : ${comment}
     ArtifactId : ${ARTIFACT_ID}
     Version : ${ARTIFACT_VERSION}
@@ -100,9 +101,12 @@ pipeline {
         script {
           pom = readMavenPom file: './pom.xml'
           echo "${pom}"
-          def commit = sh(returnStdout: true, script: 'git --no-pager show -s --format=\'%h\'  origin/' + env.BRANCH_NAME).trim()
+          echo "${pom.version}"
+          echo "${pom.artifactId}"
+          def gitCommitId = sh(returnStdout: true, script: 'git rev-parse --short HEAD')
+          echo "${gitCommitId}"
           sh 'docker build -t men/sirh/${pom.artifactId}:${pom.version} .'
-          sh 'docker tag men/sirh/${pom.artifactId}:${pom.version} men/sirh/${pom.artifactId}:${commit}'
+          sh 'docker tag men/sirh/${pom.artifactId}:${pom.version} men/sirh/${pom.artifactId}:${gitCommitId}'
           // TODO docker login push
         }
       }
