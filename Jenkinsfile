@@ -9,6 +9,7 @@ pipeline {
     DEPLOY_ARTIFACT = 'false'
     ARTIFACT_ID = readMavenPom().getArtifactId()
     ARTIFACT_VERSION = readMavenPom().getVersion()
+    DOCKER_REGISTRY_USER = 'sirh'
   }
 
   options {
@@ -99,8 +100,8 @@ pipeline {
       steps {
         script {
           def gitCommitId = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-          sh 'docker build -t men/sirh/${ARTIFACT_ID}:${ARTIFACT_VERSION} .'
-          sh 'docker tag men/sirh/${ARTIFACT_ID}:${ARTIFACT_VERSION} men/sirh/${ARTIFACT_ID}:${gitCommitId}'
+          sh 'docker build -t ${DOCKER_REGISTRY_USER}/${ARTIFACT_ID}:${ARTIFACT_VERSION} .'
+          sh 'docker tag ${DOCKER_REGISTRY_USER}/${ARTIFACT_ID}:${ARTIFACT_VERSION} ${DOCKER_REGISTRY_USER}/${ARTIFACT_ID}:${gitCommitId}'
           // TODO docker login push
         }
       }
