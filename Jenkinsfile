@@ -20,8 +20,7 @@ pipeline {
     stage('Information') {
       steps {
         script {
-          def gitCommitId = sh(returnStdout: true, script: 'git rev-parse --short HEAD')
-          def commit = sh(returnStdout: true, script: 'git --no-pager show -s --format=\'%h\'  origin/' + env.BRANCH_NAME).trim()
+          def gitCommitId = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
           def author = sh(returnStdout: true, script: 'git --no-pager show -s --format=\'%an\' origin/' + env.BRANCH_NAME).trim()
           def authorEmail = sh(returnStdout: true, script: 'git --no-pager show -s --format=\'%ae\' origin/' + env.BRANCH_NAME).trim()
           def comment = sh(returnStdout: true, script: 'git --no-pager show -s --format=\'%B\' origin/' + env.BRANCH_NAME).trim()
@@ -99,14 +98,9 @@ pipeline {
       agent any
       steps {
         script {
-          pom = readMavenPom file: './pom.xml'
-          echo "${pom}"
-          echo "${pom.version}"
-          echo "${pom.artifactId}"
-          def gitCommitId = sh(returnStdout: true, script: 'git rev-parse --short HEAD')
-          echo "${gitCommitId}"
-          sh 'docker build -t men/sirh/${pom.artifactId}:${pom.version} .'
-          sh 'docker tag men/sirh/${pom.artifactId}:${pom.version} men/sirh/${pom.artifactId}:${gitCommitId}'
+          def gitCommitId = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+          sh 'docker build -t men/sirh/${ARTIFACT_ID}:${ARTIFACT_VERSION} .'
+          sh 'docker tag men/sirh/${ARTIFACT_ID}:${ARTIFACT_VERSION} men/sirh/${ARTIFACT_ID}:${gitCommitId}'
           // TODO docker login push
         }
       }
