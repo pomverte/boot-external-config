@@ -1,5 +1,6 @@
 #!groovy
 myDeliveryPipeline {
   runUnitTests = 'false'
-  deployArtifact = 'false'
+  nexusDeploy = 'false'
+  ansibleDeploy = 'true'
 }
