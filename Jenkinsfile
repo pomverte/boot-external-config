@@ -96,7 +96,6 @@ pipeline {
     }
 
     stage('Build Docker image') {
-      agent any
       steps {
         script {
           sh 'docker build -t ${DOCKER_REGISTRY_USER}/${ARTIFACT_ID}:${ARTIFACT_VERSION} .'
