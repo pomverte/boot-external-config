@@ -99,8 +99,9 @@ pipeline {
       agent any
       steps {
         script {
-          def gitCommitId = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
           sh 'docker build -t ${DOCKER_REGISTRY_USER}/${ARTIFACT_ID}:${ARTIFACT_VERSION} .'
+          def gitCommitId = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+          echo "${gitCommitId}"
           sh 'docker tag ${DOCKER_REGISTRY_USER}/${ARTIFACT_ID}:${ARTIFACT_VERSION} ${DOCKER_REGISTRY_USER}/${ARTIFACT_ID}:${gitCommitId}'
           // TODO docker login push
         }
