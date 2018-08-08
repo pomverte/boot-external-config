@@ -95,19 +95,21 @@ pipeline {
       }
     }
 
-    stage('Build Docker image') {
+    stage('Docker image build and tag') {
       steps {
-        script {
-          sh 'docker build -t ${DOCKER_REGISTRY_USER}/${ARTIFACT_ID}:${ARTIFACT_VERSION} .'
-          def gitCommitId = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-          sh "docker tag ${DOCKER_REGISTRY_USER}/${ARTIFACT_ID}:${ARTIFACT_VERSION} ${DOCKER_REGISTRY_USER}/${ARTIFACT_ID}:${gitCommitId}"
-          if ('master' == ${env.BRANCH_NAME}) {
-            sh 'docker tag ${DOCKER_REGISTRY_USER}/${ARTIFACT_ID}:${ARTIFACT_VERSION} ${DOCKER_REGISTRY_USER}/${ARTIFACT_ID}:latest'
-          }
-          // TODO docker login push
-        }
+        def gitCommitId = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+        sh "docker image build -t ${DOCKER_REGISTRY_USER}/${ARTIFACT_ID}:${ARTIFACT_VERSION} -t ${DOCKER_REGISTRY_USER}/${ARTIFACT_ID}:${gitCommitId} ."
       }
     }
+    stage('Docker image tag latest') {
+      when {
+        branch 'master'
+      }
+      steps {
+        sh 'docker image tag ${DOCKER_REGISTRY_USER}/${ARTIFACT_ID}:${ARTIFACT_VERSION} ${DOCKER_REGISTRY_USER}/${ARTIFACT_ID}:latest'
+      }
+    }
+    // TODO docker login push
 
   }
 
