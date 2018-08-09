@@ -1,5 +1,5 @@
 #!groovy
-myDeliveryPipeline {
+mavenPipeline {
   runUnitTests = 'false'
   nexusDeploy = 'false'
   ansibleDeploy = 'true'
