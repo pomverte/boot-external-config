@@ -55,16 +55,6 @@
         <groupId>external.atlassian.jgitflow</groupId>
         <artifactId>jgitflow-maven-plugin</artifactId>
         <version>1.0-m5.1</version>
-        <configuration>
-          <allowUntracked>true</allowUntracked>
-          <autoVersionSubmodules>true</autoVersionSubmodules>
-          <pushFeatures>false</pushFeatures>
-          <pushReleases>false</pushReleases>
-          <pushHotfixes>false</pushHotfixes>
-          <releaseBranchVersionSuffix>RC</releaseBranchVersionSuffix>
-          <noDeploy>true</noDeploy>
-          <scmCommentPrefix>[jgitflow] </scmCommentPrefix>
-        </configuration>
       </plugin>
     </plugins>
   </build>
