@@ -22,8 +22,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.7</java.version>
-    <url.repository.internal.releases>https://nexus:8081/repository/maven-releases/</url.repository.internal.releases>
-    <url.repository.internal.snapshots>https://nexus:8081/repository/maven-snapshots/</url.repository.internal.snapshots>
+    <url.repository.internal.releases>http://nexus:8081/repository/maven-releases/</url.repository.internal.releases>
+    <url.repository.internal.snapshots>http://nexus:8081/repository/maven-snapshots/</url.repository.internal.snapshots>
   </properties>
 
   <dependencies>

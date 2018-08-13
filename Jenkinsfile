@@ -1,6 +1,6 @@
 #!groovy
 mavenPipeline {
   runUnitTests = 'false'
-  nexusDeploy = 'false'
+  nexusDeploy = 'true'
   ansibleDeploy = 'true'
 }
