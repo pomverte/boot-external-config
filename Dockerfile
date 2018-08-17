@@ -17,10 +17,11 @@ LABEL fr.gouv.education.men.sirh.maintainer=hong.viet.ext@numerilab.education
 EXPOSE 8080
 RUN adduser java -h / -D
 
-COPY --from=build /work/target/boot-external-config*.jar /boot-external-config.jar
-RUN chown java /boot-external-config.jar
-RUN sh -c 'touch /boot-external-config.jar'
+WORKDIR /app
+COPY --from=build /work/target/boot-external-config*.jar boot-external-config.jar
+RUN chown java boot-external-config.jar
+RUN sh -c 'touch boot-external-config.jar'
 
 USER java
 
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/boot-external-config.jar"]
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app/boot-external-config.jar"]
